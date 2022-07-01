@@ -9,8 +9,36 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack{
+            LinearGradient(gradient: Gradient(colors: [.blue, .yellow]),
+                startPoint: .topLeading,
+                           endPoint: .bottom)
+                .ignoresSafeArea()
+            
+            VStack{
+                
+                HStack{
+                Image(systemName: "location.fill")
+                    .foregroundColor(.white)
+                    .padding([.top, .leading, .bottom])
+                Text("Lagos, Nigeria")
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                    .padding()
+                }
+                VStack{
+                    Image(systemName: "cloud.sun.rain.fill")
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 180, height: 180)
+                                        
+                Spacer()
+                       
+                }
+            }
+        }
     }
 }
 
