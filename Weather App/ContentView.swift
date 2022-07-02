@@ -38,85 +38,47 @@ struct ContentView: View {
                         .font(.system(size: 70, weight: .heavy))
                         .foregroundColor(.white)
                 
-                Spacer()
+                }
+                .padding(.bottom, 40)
                     
-                    HStack{
+                    HStack(spacing: 20 ){
                         
-                        VStack{
-                            Text("WED")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.medium)
-                            Image(systemName: "cloud.rain.fill")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 40)
-                            Text("21°")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
+                        WeatherView(dayOfWeek: "THUR",
+                                    weatherName: "cloud.bolt.rain.fill",
+                                    temprature: 18)
+                        
+                        WeatherView(dayOfWeek: "FRI",
+                                    weatherName: "sunset.fill",
+                                    temprature: 26)
+                        
+                        WeatherView(dayOfWeek: "SAT",
+                                    weatherName: "thermometer.sun.fill",
+                                    temprature: 30)
+                        
+                        WeatherView(dayOfWeek: "SUN",
+                                    weatherName: "sun.max.fill",
+                                    temprature: 27)
+                        
+                        WeatherView(dayOfWeek: "MON",
+                                    weatherName: "cloud.rain.fill",
+                                    temprature: 21)
                         }
-                        VStack{
-                            Text("THUR")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                            Image(systemName: "cloud.bolt.rain.fill")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 40)
-                            Text("18°")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                        }
-                        VStack{
-                            Text("FRI")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.medium)
-                            Image(systemName: "cloud.sun.fill")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 40)
-                            Text("26°")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                        }
-                        VStack{
-                            Text("SAT")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.medium)
-                            Image(systemName: "thermometer.sun.fill")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 40)
-                            Text("30°")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                        }
-                        VStack{
-                            Text("SUN")
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .fontWeight(.medium)
-                            Image(systemName: "sun.max.fill")
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40, height: 40)
-                            Text("27°")
-                                .font(.title)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                        }
+                        
+            
+                        Spacer()
+                
+                Button{
+                    print("clicked")
+                } label: {
+                    Text("Change")
+                        .frame(width: 250, height: 50)
+                        .background(.white)
+                        .font(.system(size: 20, weight: .bold, design: . default))
+                        .cornerRadius(20)
+                    
+                    
+                }
+                Spacer()
                         
                     }
                     Spacer()
@@ -124,11 +86,36 @@ struct ContentView: View {
                 }
             }
         }
-    }
-}
+    
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct WeatherView: View {
+    
+    var dayOfWeek: String
+    var weatherName: String
+    var temprature: Int
+    
+    var body: some View {
+        VStack{
+            Text(dayOfWeek)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .font(.system(size: 25))
+            Image(systemName: weatherName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30, height: 30)
+            Text("\(temprature)°")
+                .font(.title)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+        }
     }
 }
