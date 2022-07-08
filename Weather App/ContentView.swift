@@ -4,40 +4,24 @@
 //
 //  Created by Oluwatomiwa Olatunji on 01/07/2022.
 //
-
+ 
 import SwiftUI
 
 struct ContentView: View {
+    
+@State private var isNight = false
+    
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [.blue, .yellow]),
-                startPoint: .topLeading,
-                           endPoint: .bottom)
-                .ignoresSafeArea()
+            BackgroundView (topColor: isNight ? .black : .blue,
+                            bottomColor: isNight ? .gray : .yellow)
             
             VStack {
-                
                 HStack{
-                Image(systemName: "location.fill")
-                    .foregroundColor(.white)
-                    .padding([.top, .leading, .bottom])
-                Text("Lagos, Nigeria")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .foregroundColor(.white)
-                    .padding()
+                CityTextView (cityName: "Lagos, Nigeria", cityIcon: "location.fill")
                 }
                 VStack{
-                    Image(systemName: "cloud.sun.rain.fill")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180, height: 180)
-                    
-                    Text("26°")
-                        .font(.system(size: 70, weight: .heavy))
-                        .foregroundColor(.white)
-                
+                   CityWeatherView (cityWeather: "cloud.sun.rain.fill", cityTemp: 26)
                 }
                 .padding(.bottom, 40)
                     
@@ -68,15 +52,11 @@ struct ContentView: View {
                         Spacer()
                 
                 Button{
-                    print("clicked")
+                    isNight.toggle()
                 } label: {
-                    Text("Change")
-                        .frame(width: 250, height: 50)
-                        .background(.white)
-                        .font(.system(size: 20, weight: .bold, design: . default))
-                        .cornerRadius(20)
-                    
-                    
+                    WeatherButton(title: "Change",
+                                  textColor: .blue,
+                                  backgroundColor: .white)
                 }
                 Spacer()
                         
@@ -116,6 +96,55 @@ struct WeatherView: View {
                 .font(.title)
                 .fontWeight(.medium)
                 .foregroundColor(.white)
+                
         }
     }
 }
+
+struct BackgroundView: View {
+    
+    var topColor: Color
+    var bottomColor: Color
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [.blue, .yellow]),
+                       startPoint: .topLeading,
+                       endPoint: .bottom)
+        .ignoresSafeArea()
+    }
+}
+
+struct CityTextView: View{
+    
+    var cityName : String
+    var cityIcon : String
+    var body: some View {
+        Image(systemName: cityIcon)
+            .foregroundColor(.white)
+            .padding([.top, .leading, .bottom])
+        Text(cityName)
+            .font(.title)
+            .fontWeight(.medium)
+            .foregroundColor(.white)
+            .padding()
+    }
+}
+
+struct CityWeatherView: View{
+    
+    var cityWeather : String
+    var cityTemp: Int
+    var body: some View{
+            Image(systemName: cityWeather)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 180, height: 180)
+            
+            Text("\(cityTemp)°")
+                .font(.system(size: 70, weight: .heavy))
+                .foregroundColor(.white)
+    }
+}
+
+
